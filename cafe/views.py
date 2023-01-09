@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from .models import Coffee
 from django.contrib import messages
 from .models import * 
@@ -121,4 +121,10 @@ def cart(request):
     myzip=zip(coffee,quantity)
     ctx={'myzip':myzip,'total':total}
     return render(request,'cart.html',ctx)
+
+def check(request):
+    address=request.POST.get('address')
+    phone=request.POST.get('phone')
+    print(address,phone)
+    return  redirect('cart.html')
 
