@@ -29,8 +29,13 @@ def coffee(request):
         cart[coffee]=1
     if 'null' in cart:
         del cart['null']
+    
     request.session['cart']=cart
     return render(request,'coffee.html',ctx)
+
+
+def aboutus(request):
+    return render(request,'aboutus.html')
 
 @register.filter(name='cart_quantity')
 def cart_quantity(coffee,cart):
@@ -56,15 +61,16 @@ def remove_quantity(request):
     ctx={'coffees':coffees}
     #print("We are in coffee")
     coffee=request.POST.get('remove')
+    print(coffee)
     cart=request.session.get('cart')
     
     if cart:
         quantity=cart.get(coffee)
         print(quantity)
-        if quantity :
+        if quantity>1 :
             cart[coffee]=quantity-1
-        else:
-             del[coffee]
+        elif quantity==1:
+             del cart[coffee]
     else:
         cart={}
         cart[coffee]=1
@@ -73,12 +79,37 @@ def remove_quantity(request):
     request.session['cart']=cart
     print(cart)
 
+def add_quantity(request):
+    coffees=Coffee.objects.all()
+    ctx={'coffees':coffees}
+    #print("We are in coffee")
+    coffee=request.POST.get('add')
+    cart=request.session.get('cart')
+    #print(cart)
+    if cart:
+        quantity=cart.get(coffee)
+        print(quantity)
+        if quantity :
+            cart[coffee]=quantity+1
+        else:
+            cart[coffee]=1
+    else:
+        cart={}
+        cart[coffee]=1
+    if 'null' in cart:
+        del cart['null']
+    request.session['cart']=cart
+
+
 def cart(request):
     remove=request.POST.get('remove')
-    print("Remove:",remove)
+    #print("Remove:",remove)
     add=request.POST.get('add')
+    print("Add:",add)
     if remove:
         remove_quantity(request)
+    if add:
+        add_quantity(request)
 
     ids = list(request.session.get('cart').keys())
     coffee = Coffee.get_products_by_id(ids)
@@ -90,3 +121,4 @@ def cart(request):
     myzip=zip(coffee,quantity)
     ctx={'myzip':myzip,'total':total}
     return render(request,'cart.html',ctx)
+

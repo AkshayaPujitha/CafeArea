@@ -55,22 +55,25 @@
     <!-- Links -->
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">Home</a>
+        <a class="nav-link" href="#">HOME</a>
       </li>
      
       <!-- Dropdown -->
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-          Menu
+          MENU
         </a>
         <div class="dropdown-menu">
-          <a class="dropdown-item" href="coffee.html">Coffes</a>
-          <a class="dropdown-item" href="sizzler.html">Sizzlers</a>
-          <a class="dropdown-item" href="shake.html">Shakes</a>
+          <a class="dropdown-item" href="coffee.html">COFFEES</a>
+          <a class="dropdown-item" href="sizzler.html">SIZZLERS</a>
+          <a class="dropdown-item" href="shake.html">SHAKES</a>
         </div>
       </li>
       <li class="nav-item">
-          <a class="nav-link" href="cart.html">Cart</a>
+          <a class="nav-link" href="cart.html">CART</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="aboutus.html">ABOUT US</a>
         </li>
     
     </ul>
@@ -80,7 +83,7 @@
             <div class="row text-center">
               <div class="col-md-8">
                 <h2 class="title">
-                  Our Pizzas
+                  Our Coffees
                 </h2>
                 <div class="row">
                   {% for coffee in coffees %}
@@ -91,7 +94,7 @@
                         {{coffee.price}}$
                     
                     <div>
-                      <form action="coffee.html#{{coffee.id}}" method="POST" class="btn-block">
+                      <form action="coffee.html" method="POST" class="btn-block">
                         {% csrf_token %}
                         <input hidden type="text" name='coffee' value='{{coffee.id}}'>
                         <input type="submit" class="float-right btn btn-light  form-control"
