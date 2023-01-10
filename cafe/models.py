@@ -18,5 +18,7 @@ class Order(models.Model):
     
     def order(self):
         self.save()
+    def get_orders_by_id(ids):
+        return Order.objects.filter(id__in =ids)
 
 # Create your models here.

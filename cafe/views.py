@@ -134,4 +134,8 @@ def check(request):
 
     print(address,phone)
     return  redirect('cart.html')
+def order(request):
+    order=Order.objects.all()
+    print(order)
+    return render(request,'order.html',{'orders':order})
 
