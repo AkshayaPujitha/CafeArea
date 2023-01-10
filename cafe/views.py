@@ -105,7 +105,7 @@ def cart(request):
     remove=request.POST.get('remove')
     #print("Remove:",remove)
     add=request.POST.get('add')
-    print("Add:",add)
+    #print("Add:",add)
     if remove:
         remove_quantity(request)
     if add:
@@ -125,6 +125,13 @@ def cart(request):
 def check(request):
     address=request.POST.get('address')
     phone=request.POST.get('phone')
+    cart=request.session.get('cart')
+    coffees=Coffee.get_products_by_id(list(cart.keys()))
+    for coffee in coffees:
+        order=Order(product=coffee,quantity=(cart.get(str(coffee.id))),price=coffee.price,address=address,phone=phone)
+        order.save()
+    request.session['cart']={}
+
     print(address,phone)
     return  redirect('cart.html')
 
