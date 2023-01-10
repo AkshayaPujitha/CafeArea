@@ -9,4 +9,7 @@ urlpatterns=[
     path('home.html',views.home,name="home"),
     path('check-out',views.check,name="check"),
     path('order.html',views.order,name="order"),
+    path('login.html',views.login,name="login"),
+    path('signup.html',views.signup,name="signup"),
+    path('signup',views.sign,name="sign"),
 ]
