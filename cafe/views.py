@@ -123,6 +123,8 @@ def cart(request):
         add_quantity(request)
 
     ids = list(request.session.get('cart').keys())
+    if 'null' in ids:
+        ids.remove('null')
     coffee = Coffee.get_products_by_id(ids)
     cart = request.session.get('cart')
     quantity = []
@@ -131,7 +133,10 @@ def cart(request):
     total = total_cart_price(coffee, cart)
     myzip = zip(coffee, quantity)
     ctx = {'myzip': myzip, 'total': total}
+    
     return render(request, 'cart.html', ctx)
+    
+
 
 
 def check(request):
@@ -156,6 +161,7 @@ def order(request):
 
 
 def login(request):
+
     return render(request, 'login.html')
 
 
