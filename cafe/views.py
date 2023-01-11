@@ -159,9 +159,25 @@ def order(request):
     print(order)
     return render(request, 'order.html', {'orders': order})
 
-
 def login(request):
+    return render(request, 'login.html')
 
+def login_validation(request):
+    if request.method=='POST':
+        email=request.POST.get('email')
+        password=request.POST.get('password')
+        error_message=None
+        try:
+            customer=Customer.objects.get(email=email)
+        except:
+            error_message='Email or Password invalid !!'
+            return render(request, 'login.html',{'error':error_message})
+        if customer.password==password:
+            return render(request, 'order.html')
+        else:
+            error_message='Email or Password invalid !!'
+            return render(request, 'login.html',{'error':error_message})
+        
     return render(request, 'login.html')
 
 

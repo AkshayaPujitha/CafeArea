@@ -12,4 +12,5 @@ urlpatterns=[
     path('login.html',views.login,name="login"),
     path('signup.html',views.signup,name="signup"),
     path('signup',views.sign,name="sign"),
+    path('login',views.login_validation,name="login_validity"),
 ]
