@@ -15,7 +15,7 @@ def home(request):
 def menu(request):
     return render(request, 'menu.html')
 
-
+#In Menu
 def coffee(request):
     coffees = Coffee.objects.all()
     ctx = {'coffees': coffees}
@@ -43,6 +43,7 @@ def coffee(request):
 def aboutus(request):
     return render(request, 'aboutus.html')
 
+#In Cart
 
 @register.filter(name='cart_quantity')
 def cart_quantity(coffee, cart):
@@ -138,6 +139,7 @@ def cart(request):
     
 
 
+# CheckOut
 
 def check(request):
     address = request.POST.get('address')
@@ -153,6 +155,7 @@ def check(request):
     print(address, phone)
     return redirect('cart.html')
 
+#Orders
 
 def order(request):
     order = Order.objects.all()
@@ -161,6 +164,8 @@ def order(request):
 
 def login(request):
     return render(request, 'login.html')
+
+# Login Page
 
 def login_validation(request):
     if request.method=='POST':
@@ -204,6 +209,8 @@ def validateCustomer(customer):
         # saving
 
     return error_message
+
+#SignUp
 def signup(request):
     return render(request,'signup.html')
 
@@ -235,7 +242,5 @@ def sign(request):
             }
     return render(request, 'signup.html', data)
     #return render(request,'signup.html')
-
-
         
 
