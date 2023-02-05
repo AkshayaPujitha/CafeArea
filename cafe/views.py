@@ -144,11 +144,12 @@ def cart(request):
 def check(request):
     address = request.POST.get('address')
     phone = request.POST.get('phone')
+    email=request.POST.get('email')
     cart = request.session.get('cart')
     coffees = Coffee.get_products_by_id(list(cart.keys()))
     for coffee in coffees:
         order = Order(product=coffee, quantity=(cart.get(str(coffee.id))),
-                      price=coffee.price, address=address, phone=phone)
+                      price=coffee.price, address=address, phone=phone,email=email)
         order.save()
     request.session['cart'] = {}
 
@@ -158,9 +159,20 @@ def check(request):
 #Orders
 
 def order(request):
+    email=request.POST.get('email')
+    print(email)
     order = Order.objects.all()
-    print(order)
-    return render(request, 'order.html', {'orders': order})
+    final_order=[]
+    for i in order:
+        #print(i)
+        ind=i.email
+        print(ind)
+        if ind==email:
+            print(ind)
+            final_order.append(i)
+
+    #print(order)
+    return render(request, 'order.html', {'orders': final_order})
 
 def login(request):
     return render(request, 'login.html')
@@ -242,5 +254,8 @@ def sign(request):
             }
     return render(request, 'signup.html', data)
     #return render(request,'signup.html')
+
+def order1(request):
+    return render(request,'order1.html')
         
 

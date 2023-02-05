@@ -10,6 +10,7 @@ class Coffee(models.Model):
     def get_products_by_id(ids):
         return Coffee.objects.filter(id__in =ids)
 class Order(models.Model):
+    email=models.EmailField(default="maa@gamil.com")
     product = models.ForeignKey(Coffee,on_delete=models.CASCADE)
     quantity=models.IntegerField(default=1)
     price=models.DecimalField(max_digits=5,decimal_places=2)
